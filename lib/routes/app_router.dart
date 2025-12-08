@@ -1,0 +1,101 @@
+import 'package:go_router/go_router.dart';
+import '../screens/auth/login_screen.dart';
+import '../screens/auth/register_screen.dart';
+import '../screens/common/splash_screen.dart';
+import '../screens/customer/home_screen.dart';
+import '../screens/customer/point_screen.dart';
+import '../screens/customer/coupon_screen.dart';
+import '../screens/customer/reward_screen.dart';
+import '../screens/customer/profile_screen.dart';
+import '../screens/owner/owner_home_screen.dart';
+import '../screens/owner/cafe_manage_screen.dart';
+import '../screens/owner/coupon_manage_screen.dart';
+import '../screens/owner/statistics_screen.dart';
+import '../screens/map/cafe_map_screen.dart';
+import '../screens/map/cafe_list_screen.dart';
+import '../screens/map/cafe_detail_screen.dart';
+import '../screens/community/community_feed_screen.dart';
+import '../screens/community/post_detail_screen.dart';
+
+class AppRouter {
+  static final GoRouter router = GoRouter(
+    initialLocation: '/splash',
+    routes: [
+      GoRoute(
+        path: '/splash',
+        builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: '/login',
+        builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => const RegisterScreen(),
+      ),
+      GoRoute(
+        path: '/home',
+        builder: (context, state) => const CustomerHomeScreen(),
+      ),
+      GoRoute(
+        path: '/points',
+        builder: (context, state) => const PointScreen(),
+      ),
+      GoRoute(
+        path: '/coupons',
+        builder: (context, state) => const CouponScreen(),
+      ),
+      GoRoute(
+        path: '/rewards',
+        builder: (context, state) => const RewardScreen(),
+      ),
+      GoRoute(
+        path: '/profile',
+        builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: '/owner',
+        builder: (context, state) => const OwnerHomeScreen(),
+      ),
+      GoRoute(
+        path: '/owner/cafe',
+        builder: (context, state) => const CafeManageScreen(),
+      ),
+      GoRoute(
+        path: '/owner/coupons',
+        builder: (context, state) => const CouponManageScreen(),
+      ),
+      GoRoute(
+        path: '/owner/statistics',
+        builder: (context, state) => const StatisticsScreen(),
+      ),
+      GoRoute(
+        path: '/map',
+        builder: (context, state) => const CafeMapScreen(),
+      ),
+      GoRoute(
+        path: '/cafes',
+        builder: (context, state) => const CafeListScreen(),
+      ),
+      GoRoute(
+        path: '/cafes/:cafeId',
+        builder: (context, state) {
+          final cafeId = state.pathParameters['cafeId']!;
+          return CafeDetailScreen(cafeId: cafeId);
+        },
+      ),
+      GoRoute(
+        path: '/community',
+        builder: (context, state) => const CommunityFeedScreen(),
+      ),
+      GoRoute(
+        path: '/community/:postId',
+        builder: (context, state) {
+          final postId = state.pathParameters['postId']!;
+          return PostDetailScreen(postId: postId);
+        },
+      ),
+    ],
+  );
+}
+
