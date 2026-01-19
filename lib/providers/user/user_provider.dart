@@ -1,50 +1,46 @@
-import 'package:flutter/foundation.dart';
 import '../../models/user/user_model.dart';
 import '../../services/api/api_client.dart';
 import '../../services/api/user_api_service.dart';
+import '../../services/auth/current_user_service.dart';
 import '../../constants/api_constants.dart';
+import '../../core/base_provider.dart';
 
-class UserProvider with ChangeNotifier {
+class UserProvider extends BaseProvider {
   final UserApiService _userApiService;
+  final CurrentUserService _currentUserService = CurrentUserService();
   UserModel? _user;
-  bool _isLoading = false;
 
   UserProvider()
       : _userApiService = UserApiService(
           ApiClient(baseUrl: ApiConstants.baseUrl),
         );
 
-  UserModel? get user => _user;
-  bool get isLoading => _isLoading;
+  UserModel? get user => _user ?? _currentUserService.currentUser;
 
   Future<void> loadUser(String userId) async {
-    _isLoading = true;
-    notifyListeners();
-
-    try {
+    await safeAsync(() async {
       _user = await _userApiService.getUser(userId);
-    } catch (e) {
-      // TODO: 에러 처리
-    } finally {
-      _isLoading = false;
-      notifyListeners();
+      if (_user != null) {
+        await _currentUserService.setUser(_user!);
+      }
+    });
+  }
+
+  Future<void> loadCurrentUser() async {
+    final userId = await _currentUserService.loadStoredUserId();
+    if (userId != null) {
+      await loadUser(userId);
     }
   }
 
   Future<void> updateUser(Map<String, dynamic> data) async {
-    if (_user == null) return;
+    if (user == null) return;
 
-    _isLoading = true;
-    notifyListeners();
-
-    try {
-      _user = await _userApiService.updateUser(_user!.id, data);
-    } catch (e) {
-      // TODO: 에러 처리
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
+    await safeAsync(() async {
+      _user = await _userApiService.updateUser(user!.id, data);
+      if (_user != null) {
+        await _currentUserService.setUser(_user!);
+      }
+    });
   }
 }
-

@@ -1,16 +1,15 @@
-import 'package:flutter/foundation.dart';
 import '../../models/point/point_model.dart';
 import '../../services/api/api_client.dart';
 import '../../services/api/point_api_service.dart';
+import '../../services/auth/current_user_service.dart';
 import '../../constants/api_constants.dart';
-import 'package:uuid/uuid.dart';
+import '../../core/base_provider.dart';
 
-class PointProvider with ChangeNotifier {
+class PointProvider extends BaseProvider {
   final PointApiService _pointApiService;
-  final _uuid = const Uuid();
+  final CurrentUserService _currentUserService = CurrentUserService();
   int _totalPoints = 0;
   List<PointModel> _pointHistory = [];
-  bool _isLoading = false;
 
   PointProvider()
       : _pointApiService = PointApiService(
@@ -19,123 +18,71 @@ class PointProvider with ChangeNotifier {
 
   int get totalPoints => _totalPoints;
   List<PointModel> get pointHistory => _pointHistory;
-  bool get isLoading => _isLoading;
 
-  Future<void> loadTotalPoints(String userId) async {
-    _isLoading = true;
-    notifyListeners();
+  String? get _currentUserId => _currentUserService.currentUserId;
 
-    try {
-      _totalPoints = await _pointApiService.getTotalPoints(userId);
-    } catch (e) {
-      // TODO: 에러 처리
-      // fallback: 로컬 합산
-      _totalPoints =
-          _pointHistory.fold<int>(0, (sum, p) => sum + (p.type == PointType.earn ? p.amount : -p.amount));
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
+  Future<void> loadTotalPoints([String? userId]) async {
+    final targetUserId = userId ?? _currentUserId;
+    if (targetUserId == null) return;
+
+    await safeAsync(() async {
+      _totalPoints = await _pointApiService.getTotalPoints(targetUserId);
+    });
   }
 
-  Future<void> loadPointHistory(String userId) async {
-    _isLoading = true;
-    notifyListeners();
+  Future<void> loadPointHistory([String? userId]) async {
+    final targetUserId = userId ?? _currentUserId;
+    if (targetUserId == null) return;
 
-    try {
-      _pointHistory = await _pointApiService.getPointHistory(userId);
-    } catch (e) {
-      // TODO: 에러 처리
-      // fallback: 기존 로컬 데이터 유지
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
+    await safeAsync(() async {
+      _pointHistory = await _pointApiService.getPointHistory(targetUserId);
+    });
+  }
+
+  Future<void> loadPoints([String? userId]) async {
+    await Future.wait([
+      loadTotalPoints(userId),
+      loadPointHistory(userId),
+    ]);
   }
 
   Future<void> earnPoints({
-    required String userId,
+    String? userId,
     required String cafeId,
     required int amount,
     String? description,
   }) async {
-    _isLoading = true;
-    notifyListeners();
+    final targetUserId = userId ?? _currentUserId;
+    if (targetUserId == null) return;
 
-    try {
+    await safeAsync(() async {
       await _pointApiService.earnPoints(
-        userId: userId,
+        userId: targetUserId,
         cafeId: cafeId,
         amount: amount,
         description: description,
       );
-    } catch (e) {
-      // TODO: 에러 처리 또는 로컬 저장
-      _addLocalPoint(
-        userId: userId,
-        cafeId: cafeId,
-        amount: amount,
-        type: PointType.earn,
-        description: description ?? '로컬 적립',
-      );
-    } finally {
-      await loadTotalPoints(userId);
-      await loadPointHistory(userId);
-      _isLoading = false;
-      notifyListeners();
-    }
+      await loadPoints(targetUserId);
+    });
   }
 
   Future<void> usePoints({
-    required String userId,
+    String? userId,
     required String cafeId,
     required int amount,
     String? description,
   }) async {
-    _isLoading = true;
-    notifyListeners();
+    final targetUserId = userId ?? _currentUserId;
+    if (targetUserId == null) return;
 
-    try {
+    await safeAsync(() async {
       await _pointApiService.usePoints(
-        userId: userId,
+        userId: targetUserId,
         cafeId: cafeId,
         amount: amount,
         description: description,
       );
-    } catch (e) {
-      // TODO: 에러 처리 또는 로컬 저장
-      _addLocalPoint(
-        userId: userId,
-        cafeId: cafeId,
-        amount: amount,
-        type: PointType.use,
-        description: description ?? '로컬 사용',
-      );
-    } finally {
-      await loadTotalPoints(userId);
-      await loadPointHistory(userId);
-      _isLoading = false;
-      notifyListeners();
-    }
-  }
-
-  void _addLocalPoint({
-    required String userId,
-    required String cafeId,
-    required int amount,
-    required PointType type,
-    String? description,
-  }) {
-    final point = PointModel(
-      id: _uuid.v4(),
-      userId: userId,
-      cafeId: cafeId,
-      amount: amount,
-      type: type,
-      description: description,
-      createdAt: DateTime.now(),
-    );
-    _pointHistory = [point, ..._pointHistory];
+      await loadPoints(targetUserId);
+    });
   }
 }
-

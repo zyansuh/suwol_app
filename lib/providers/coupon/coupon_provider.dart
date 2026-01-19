@@ -1,16 +1,15 @@
-import 'package:flutter/foundation.dart';
-import 'package:uuid/uuid.dart';
 import '../../models/coupon/coupon_model.dart';
 import '../../services/api/api_client.dart';
 import '../../services/api/coupon_api_service.dart';
+import '../../services/auth/current_user_service.dart';
 import '../../constants/api_constants.dart';
+import '../../core/base_provider.dart';
 
-class CouponProvider with ChangeNotifier {
+class CouponProvider extends BaseProvider {
   final CouponApiService _couponApiService;
-  final _uuid = const Uuid();
+  final CurrentUserService _currentUserService = CurrentUserService();
   List<UserCoupon> _userCoupons = [];
   List<CouponModel> _availableCoupons = [];
-  bool _isLoading = false;
 
   CouponProvider()
       : _couponApiService = CouponApiService(
@@ -19,102 +18,38 @@ class CouponProvider with ChangeNotifier {
 
   List<UserCoupon> get userCoupons => _userCoupons;
   List<CouponModel> get availableCoupons => _availableCoupons;
-  bool get isLoading => _isLoading;
 
-  Future<void> loadUserCoupons(String userId) async {
-    _isLoading = true;
-    notifyListeners();
+  String? get _currentUserId => _currentUserService.currentUserId;
 
-    try {
-      _userCoupons = await _couponApiService.getUserCoupons(userId);
-    } catch (e) {
-      // TODO: 에러 처리
-      // fallback: keep existing
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
+  Future<void> loadUserCoupons([String? userId]) async {
+    final targetUserId = userId ?? _currentUserId;
+    if (targetUserId == null) return;
+
+    await safeAsync(() async {
+      _userCoupons = await _couponApiService.getUserCoupons(targetUserId);
+    });
   }
 
   Future<void> loadAvailableCoupons(String cafeId) async {
-    _isLoading = true;
-    notifyListeners();
-
-    try {
+    await safeAsync(() async {
       _availableCoupons = await _couponApiService.getAvailableCoupons(cafeId);
-    } catch (e) {
-      // TODO: 에러 처리
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
+    });
   }
 
-  Future<void> issueCoupon(String userId, String couponId) async {
-    _isLoading = true;
-    notifyListeners();
+  Future<void> issueCoupon(String couponId, [String? userId]) async {
+    final targetUserId = userId ?? _currentUserId;
+    if (targetUserId == null) return;
 
-    try {
-      await _couponApiService.issueCoupon(userId, couponId);
-    } catch (e) {
-      // 로컬 발급 (데모용)
-      final coupon = _availableCoupons.firstWhere(
-        (c) => c.id == couponId,
-        orElse: () => CouponModel(
-          id: couponId,
-          cafeId: '',
-          title: '임시 쿠폰',
-          description: '',
-          type: CouponType.amount,
-          discountAmount: 0,
-          validFrom: DateTime.now(),
-          validUntil: DateTime.now().add(const Duration(days: 7)),
-          createdAt: DateTime.now(),
-        ),
-      );
-
-      final newUserCoupon = UserCoupon(
-        id: _uuid.v4(),
-        userId: userId,
-        couponId: coupon.id,
-        coupon: coupon,
-        issuedAt: DateTime.now(),
-        isUsed: false,
-      );
-      _userCoupons = [newUserCoupon, ..._userCoupons];
-    } finally {
-      await loadUserCoupons(userId);
-      _isLoading = false;
-      notifyListeners();
-    }
+    await safeAsync(() async {
+      await _couponApiService.issueCoupon(targetUserId, couponId);
+      await loadUserCoupons(targetUserId);
+    });
   }
 
   Future<void> useCoupon(String userCouponId) async {
-    _isLoading = true;
-    notifyListeners();
-
-    try {
+    await safeAsync(() async {
       await _couponApiService.useCoupon(userCouponId);
-      _userCoupons = _userCoupons.map((c) {
-        if (c.id == userCouponId) {
-          return UserCoupon(
-            id: c.id,
-            userId: c.userId,
-            couponId: c.couponId,
-            coupon: c.coupon,
-            issuedAt: c.issuedAt,
-            usedAt: DateTime.now(),
-            isUsed: true,
-          );
-        }
-        return c;
-      }).toList();
-    } catch (e) {
-      // TODO: 에러 처리 또는 로컬 처리
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
+      await loadUserCoupons();
+    });
   }
 }
-

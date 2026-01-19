@@ -44,8 +44,6 @@ class ImageService {
 
   /// 이미지 선택 옵션 표시 (갤러리/카메라)
   Future<File?> pickImage({bool allowCamera = true}) async {
-    // 실제로는 showDialog로 선택 옵션을 보여줘야 하지만
-    // 여기서는 간단히 갤러리만 사용
     return await pickImageFromGallery();
   }
 
@@ -64,5 +62,3 @@ class ImageService {
     }
   }
 }
-
-

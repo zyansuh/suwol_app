@@ -119,6 +119,7 @@ suwol/
 ## 주요 기능별 구조
 
 ### 1. 통합포인트/쿠폰 시스템
+
 - **모델**: `models/point/`, `models/coupon/`
 - **화면**: `screens/customer/point_screen.dart`, `screens/customer/coupon_screen.dart`
 - **위젯**: `widgets/point/`, `widgets/coupon/`
@@ -126,6 +127,7 @@ suwol/
 - **상태 관리**: `providers/point/`, `providers/coupon/`
 
 ### 2. 카페 맵 & 탐색 기능
+
 - **모델**: `models/cafe/`
 - **화면**: `screens/map/`
 - **위젯**: `widgets/cafe/`
@@ -133,15 +135,18 @@ suwol/
 - **상태 관리**: `providers/cafe/`
 
 ### 3. 고객 리워드 & 등급제
+
 - **모델**: `models/reward/`
 - **화면**: `screens/customer/reward_screen.dart`
 - **서비스**: `services/api/` (포인트와 연계)
 
 ### 4. 사장님 전용 관리 페이지
+
 - **화면**: `screens/owner/`
 - **서비스**: `services/api/cafe_api_service.dart`, `services/api/coupon_api_service.dart`
 
 ### 5. 커뮤니티 피드
+
 - **모델**: `models/community/`
 - **화면**: `screens/community/`
 - **위젯**: `widgets/community/`
@@ -154,4 +159,3 @@ suwol/
 3. **API 서버 연동**: `constants/api_constants.dart`에서 API URL 설정
 4. **화면 구현**: 각 화면의 UI 및 로직 구현
 5. **테스트**: 단위 테스트 및 통합 테스트 작성
-
