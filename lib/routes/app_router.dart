@@ -23,6 +23,16 @@ import '../screens/sunset/coupon_manage_screen.dart';
 import '../screens/sunset/statistics_screen.dart';
 import '../screens/sunset/post_manage_screen.dart';
 import '../screens/sunset/settings_screen.dart';
+import '../screens/sunset/business_verification_screen.dart';
+import '../screens/sunset/report_manage_screen.dart';
+import '../screens/sunset/notice_manage_screen.dart';
+import '../screens/sunset/event_manage_screen.dart';
+import '../screens/sunset/review_manage_screen.dart';
+import '../screens/sunset/settlement_manage_screen.dart';
+import '../screens/sunset/notification_manage_screen.dart';
+import '../screens/sunset/banner_manage_screen.dart';
+import '../screens/sunset/permission_manage_screen.dart';
+import '../screens/sunset/system_log_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -130,6 +140,46 @@ class AppRouter {
       GoRoute(
         path: '/sunset/settings',
         builder: (context, state) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/business',
+        builder: (context, state) => const BusinessVerificationScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/reports',
+        builder: (context, state) => const ReportManageScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/notices',
+        builder: (context, state) => const NoticeManageScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/events',
+        builder: (context, state) => const EventManageScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/reviews',
+        builder: (context, state) => const ReviewManageScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/settlements',
+        builder: (context, state) => const SettlementManageScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/notifications',
+        builder: (context, state) => const NotificationManageScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/banners',
+        builder: (context, state) => const BannerManageScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/permissions',
+        builder: (context, state) => const PermissionManageScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/logs',
+        builder: (context, state) => const SystemLogScreen(),
       ),
     ],
   );

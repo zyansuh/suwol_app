@@ -176,20 +176,35 @@ suwol/
 │   │   ├── point/point_model.dart
 │   │   ├── coupon/coupon_model.dart
 │   │   ├── reward/reward_model.dart
-│   │   └── community/community_model.dart
+│   │   ├── community/community_model.dart
+│   │   ├── notice/notice_model.dart      # 공지사항 모델 ✅
+│   │   ├── report/report_model.dart      # 신고/문의 모델 ✅
+│   │   ├── event/event_model.dart        # 이벤트/배너 모델 ✅
+│   │   ├── review/review_model.dart      # 리뷰 모델 ✅
+│   │   └── settlement/settlement_model.dart # 정산 모델 ✅
 │   │
 │   ├── screens/                     # 화면 (UI) ⚠️
 │   │   ├── auth/                    # 로그인/회원가입 (역할 선택 UI 구현)
 │   │   ├── customer/                # 고객 화면 (홈 화면 일부 구현)
 │   │   ├── owner/                   # 사장님 화면 (스켈레톤)
 │   │   ├── sunset/                  # Admin 전용 화면 ✅
-│   │   │   ├── sunset_home_screen.dart
-│   │   │   ├── user_manage_screen.dart
-│   │   │   ├── cafe_approval_screen.dart
-│   │   │   ├── coupon_manage_screen.dart
-│   │   │   ├── statistics_screen.dart
-│   │   │   ├── post_manage_screen.dart
-│   │   │   └── settings_screen.dart
+│   │   │   ├── sunset_home_screen.dart           # Admin 홈
+│   │   │   ├── user_manage_screen.dart           # 사용자 관리
+│   │   │   ├── cafe_approval_screen.dart         # 카페 승인
+│   │   │   ├── coupon_manage_screen.dart         # 쿠폰 관리
+│   │   │   ├── statistics_screen.dart            # 통계
+│   │   │   ├── post_manage_screen.dart           # 게시글 관리
+│   │   │   ├── business_verification_screen.dart # 사업자 인증 ✅
+│   │   │   ├── report_manage_screen.dart         # 신고/문의 ✅
+│   │   │   ├── notice_manage_screen.dart         # 공지사항 ✅
+│   │   │   ├── event_manage_screen.dart          # 이벤트/프로모션 ✅
+│   │   │   ├── review_manage_screen.dart         # 리뷰 관리 ✅
+│   │   │   ├── settlement_manage_screen.dart     # 정산 관리 ✅
+│   │   │   ├── notification_manage_screen.dart   # 푸시 알림 ✅
+│   │   │   ├── banner_manage_screen.dart         # 배너 관리 ✅
+│   │   │   ├── permission_manage_screen.dart     # 권한 관리 ✅
+│   │   │   ├── system_log_screen.dart            # 시스템 로그 ✅
+│   │   │   └── settings_screen.dart              # 시스템 설정
 │   │   ├── map/                     # 지도 화면 (스켈레톤)
 │   │   ├── community/               # 커뮤니티 화면 (스켈레톤)
 │   │   └── common/                  # 공통 화면
@@ -408,12 +423,27 @@ suwol/
 
 ### Admin 화면 (Sunset) ✅
 
-- ✅ **Admin 홈**: 관리 메뉴 대시보드 (6개 관리 카드)
-- ✅ **사용자 관리**: 회원 정보 조회/관리, 필터링, 계정 관리
+#### 핵심 관리
+- ✅ **Admin 홈**: 관리 메뉴 대시보드 (16개 관리 카드, 카테고리별 분류)
+- ✅ **사용자 관리**: 회원 정보 조회/관리, 필터링, 계정 정지/삭제
 - ✅ **카페 승인 관리**: 승인 대기/승인된 카페 관리 (탭 분리)
 - ✅ **쿠폰 관리**: 전체 쿠폰 조회/관리, 통계 표시
 - ✅ **플랫폼 통계**: 회원/카페/포인트/쿠폰 통계 조회
 - ✅ **게시글 관리**: 커뮤니티 게시글 관리, 필터링
+- ✅ **사업자 인증 관리**: 사업자 등록번호 검증, 서류 확인, 승인/거부
+- ✅ **신고/문의 관리**: 고객 신고 조회/처리, 문의 답변 관리
+
+#### 콘텐츠 관리
+- ✅ **공지사항 관리**: 공지 작성/수정/삭제, 상단 고정, 게시 기간 설정
+- ✅ **이벤트/프로모션**: 전체/그룹별 이벤트 생성, 배너 관리
+- ✅ **리뷰/평가 관리**: 카페 리뷰 조회, 부적절 리뷰 삭제, 별점 통계
+- ✅ **배너/광고 관리**: 홈 배너 등록, 순서 변경(드래그), 클릭 통계
+
+#### 운영 관리
+- ✅ **정산 관리**: 카페별 정산 내역, 수수료 관리, 정산 승인/지급 (3단계 탭)
+- ✅ **푸시 알림 관리**: 일괄 발송, 타겟팅 알림, 발송 내역
+- ✅ **권한 관리**: Admin 권한 부여/회수, 역할별 권한 설정, 접근 로그
+- ✅ **시스템 로그**: 오류 로그, 사용자 활동 로그, API 호출 로그 (3탭)
 - ✅ **시스템 설정**: 앱 설정, 포인트/등급 설정, 데이터 백업/복원
 
 ### 공통 화면
@@ -458,8 +488,10 @@ suwol/
 - [x] 쿠폰 발급/사용 로직 (로컬 모킹 포함) 기본 흐름
 - [x] 카페 검색/필터링 (로컬 필터링)
 - [x] 커뮤니티 게시글 CRUD (로컬 모킹)
-- [x] Admin 전용 페이지 (Sunset) 생성 ✅
-  - [x] Admin 홈 화면, 사용자 관리, 카페 승인, 쿠폰 관리, 통계, 게시글 관리, 설정
+- [x] Admin 전용 페이지 (Sunset) 완전 구현 ✅
+  - [x] 핵심 관리 (8개 화면): 홈, 사용자, 카페, 쿠폰, 통계, 게시글, 사업자 인증, 신고/문의
+  - [x] 콘텐츠 관리 (4개 화면): 공지사항, 이벤트/프로모션, 리뷰, 배너/광고
+  - [x] 운영 관리 (5개 화면): 정산, 푸시 알림, 권한, 시스템 로그, 시스템 설정
 - [x] Owner 페이지 기능 완전 구현 ✅
   - [x] 사장님 홈 (통계 대시보드), 카페 관리, 쿠폰 관리, 통계 (매출/고객/포인트)
 

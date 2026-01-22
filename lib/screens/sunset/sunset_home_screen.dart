@@ -16,12 +16,20 @@ class SunsetHomeScreen extends StatelessWidget {
         backgroundColor: AppTheme.brandPrimary,
         foregroundColor: Colors.white,
       ),
-      body: GridView.count(
-        crossAxisCount: 2,
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
-        children: [
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('핵심 관리', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 12),
+            GridView.count(
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              children: [
           _AdminCard(
             icon: Icons.people,
             title: '사용자 관리',
@@ -68,16 +76,133 @@ class SunsetHomeScreen extends StatelessWidget {
             },
           ),
           _AdminCard(
+            icon: Icons.business_center,
+            title: '사업자 인증',
+            subtitle: '사업자 등록 승인/거부',
+            color: Colors.teal,
+            onTap: () {
+              AppRouter.router.push('/sunset/business');
+            },
+          ),
+          _AdminCard(
+            icon: Icons.report,
+            title: '신고/문의',
+            subtitle: '신고 및 문의 관리',
+            color: Colors.red,
+            onTap: () {
+              AppRouter.router.push('/sunset/reports');
+            },
+          ),
+        ],
+      ),
+      const SizedBox(height: 24),
+      const Text('콘텐츠 관리', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+      const SizedBox(height: 12),
+      GridView.count(
+        crossAxisCount: 2,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        children: [
+          _AdminCard(
+            icon: Icons.campaign,
+            title: '공지사항',
+            subtitle: '공지사항 작성/관리',
+            color: Colors.indigo,
+            onTap: () {
+              AppRouter.router.push('/sunset/notices');
+            },
+          ),
+          _AdminCard(
+            icon: Icons.celebration,
+            title: '이벤트/프로모션',
+            subtitle: '이벤트 생성/관리',
+            color: Colors.pink,
+            onTap: () {
+              AppRouter.router.push('/sunset/events');
+            },
+          ),
+          _AdminCard(
+            icon: Icons.star_rate,
+            title: '리뷰 관리',
+            subtitle: '카페 리뷰 조회/관리',
+            color: Colors.amber,
+            onTap: () {
+              AppRouter.router.push('/sunset/reviews');
+            },
+          ),
+          _AdminCard(
+            icon: Icons.view_carousel,
+            title: '배너/광고',
+            subtitle: '홈 배너 관리',
+            color: Colors.deepPurple,
+            onTap: () {
+              AppRouter.router.push('/sunset/banners');
+            },
+          ),
+        ],
+      ),
+      const SizedBox(height: 24),
+      const Text('운영 관리', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+      const SizedBox(height: 12),
+      GridView.count(
+        crossAxisCount: 2,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        children: [
+          _AdminCard(
+            icon: Icons.payment,
+            title: '정산 관리',
+            subtitle: '카페 정산 승인/지급',
+            color: Colors.cyan,
+            onTap: () {
+              AppRouter.router.push('/sunset/settlements');
+            },
+          ),
+          _AdminCard(
+            icon: Icons.notifications_active,
+            title: '푸시 알림',
+            subtitle: '알림 발송 관리',
+            color: Colors.deepOrange,
+            onTap: () {
+              AppRouter.router.push('/sunset/notifications');
+            },
+          ),
+          _AdminCard(
+            icon: Icons.admin_panel_settings,
+            title: '권한 관리',
+            subtitle: 'Admin 권한 설정',
+            color: Colors.blueGrey,
+            onTap: () {
+              AppRouter.router.push('/sunset/permissions');
+            },
+          ),
+          _AdminCard(
+            icon: Icons.history,
+            title: '시스템 로그',
+            subtitle: '오류/활동/API 로그',
+            color: Colors.grey,
+            onTap: () {
+              AppRouter.router.push('/sunset/logs');
+            },
+          ),
+          _AdminCard(
             icon: Icons.settings,
             title: '시스템 설정',
             subtitle: '앱 설정 관리',
-            color: Colors.grey,
+            color: Colors.blueGrey,
             onTap: () {
               AppRouter.router.push('/sunset/settings');
             },
           ),
         ],
       ),
+    ],
+  ),
+),
     );
   }
 }
