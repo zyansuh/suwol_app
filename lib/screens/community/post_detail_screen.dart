@@ -46,10 +46,12 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           maxLines: 3,
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('취소')),
+          TextButton(
+              onPressed: () => Navigator.pop(context), child: const Text('취소')),
           TextButton(
             onPressed: () async {
-              final provider = Provider.of<CommunityProvider>(context, listen: false);
+              final provider =
+                  Provider.of<CommunityProvider>(context, listen: false);
               await provider.updateComment(
                 commentId: commentId,
                 postId: widget.postId,
@@ -76,10 +78,12 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         title: const Text('댓글 삭제'),
         content: const Text('정말로 이 댓글을 삭제하시겠습니까?'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('취소')),
+          TextButton(
+              onPressed: () => Navigator.pop(context), child: const Text('취소')),
           TextButton(
             onPressed: () async {
-              final provider = Provider.of<CommunityProvider>(context, listen: false);
+              final provider =
+                  Provider.of<CommunityProvider>(context, listen: false);
               await provider.deleteComment(widget.postId, commentId);
               if (context.mounted) {
                 Navigator.pop(context);
@@ -136,12 +140,14 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                   Expanded(
                                     child: Text(
                                       '사용자${post.userId}',
-                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   Text(
                                     _formatTime(post.createdAt),
-                                    style: const TextStyle(fontSize: 12, color: Colors.grey),
+                                    style: const TextStyle(
+                                        fontSize: 12, color: Colors.grey),
                                   ),
                                 ],
                               ),
@@ -156,9 +162,11 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                     itemCount: post.images.length,
                                     itemBuilder: (context, index) {
                                       return Padding(
-                                        padding: const EdgeInsets.only(right: 8),
+                                        padding:
+                                            const EdgeInsets.only(right: 8),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                           child: Image.file(
                                             File(post.images[index]),
                                             fit: BoxFit.cover,
@@ -174,7 +182,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                 children: [
                                   IconButton(
                                     icon: Icon(
-                                      isLiked ? Icons.favorite : Icons.favorite_border,
+                                      isLiked
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
                                       color: isLiked ? Colors.red : null,
                                     ),
                                     onPressed: () {
@@ -198,7 +208,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
                           '댓글 ${comments.length}',
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -213,7 +224,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           (context, index) {
                             final comment = comments[index];
                             return Card(
-                              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
                               child: Padding(
                                 padding: const EdgeInsets.all(12),
                                 child: Column(
@@ -226,23 +238,31 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                         Expanded(
                                           child: Text(
                                             '사용자${comment.userId}',
-                                            style: const TextStyle(fontWeight: FontWeight.bold),
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                         Text(
                                           _formatTime(comment.createdAt),
-                                          style: const TextStyle(fontSize: 12, color: Colors.grey),
+                                          style: const TextStyle(
+                                              fontSize: 12, color: Colors.grey),
                                         ),
                                         PopupMenuButton(
                                           itemBuilder: (context) => [
-                                            const PopupMenuItem(value: 'edit', child: Text('수정')),
-                                            const PopupMenuItem(value: 'delete', child: Text('삭제')),
+                                            const PopupMenuItem(
+                                                value: 'edit',
+                                                child: Text('수정')),
+                                            const PopupMenuItem(
+                                                value: 'delete',
+                                                child: Text('삭제')),
                                           ],
                                           onSelected: (value) {
                                             if (value == 'edit') {
-                                              _showEditCommentDialog(comment.id, comment.content);
+                                              _showEditCommentDialog(
+                                                  comment.id, comment.content);
                                             } else if (value == 'delete') {
-                                              _showDeleteCommentDialog(comment.id);
+                                              _showDeleteCommentDialog(
+                                                  comment.id);
                                             }
                                           },
                                         ),
@@ -282,7 +302,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         decoration: const InputDecoration(
                           hintText: '댓글을 입력하세요...',
                           border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                         ),
                       ),
                     ),
@@ -292,7 +313,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       onPressed: () async {
                         if (_commentController.text.trim().isEmpty) return;
 
-                        final provider = Provider.of<CommunityProvider>(context, listen: false);
+                        final provider = Provider.of<CommunityProvider>(context,
+                            listen: false);
                         await provider.createComment(
                           postId: widget.postId,
                           content: _commentController.text,

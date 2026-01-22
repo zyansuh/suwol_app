@@ -54,7 +54,7 @@ class AppTheme {
         centerTitle: true,
         toolbarHeight: appBarHeight,
       ),
-      cardTheme: CardTheme(
+      cardTheme: const CardTheme(
         elevation: 2,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(

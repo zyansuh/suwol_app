@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CafeDetailScreen extends StatefulWidget {
   final String cafeId;
-  
+
   const CafeDetailScreen({
     super.key,
     required this.cafeId,
@@ -25,4 +25,3 @@ class _CafeDetailScreenState extends State<CafeDetailScreen> {
     );
   }
 }
-

@@ -20,4 +20,3 @@ class _PointScreenState extends State<PointScreen> {
     );
   }
 }
-

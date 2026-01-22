@@ -26,9 +26,14 @@ class ReviewModel {
       cafeId: json['cafeId'] as String,
       rating: json['rating'] as int,
       content: json['content'] as String,
-      images: (json['images'] as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
+      images: (json['images'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
       createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt'] as String) : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.parse(json['updatedAt'] as String)
+          : null,
     );
   }
 }

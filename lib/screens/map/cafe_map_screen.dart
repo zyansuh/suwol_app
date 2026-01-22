@@ -20,4 +20,3 @@ class _CafeMapScreenState extends State<CafeMapScreen> {
     );
   }
 }
-

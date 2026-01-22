@@ -6,13 +6,13 @@ import '../../core/base_provider.dart';
 class CommunityProvider extends BaseProvider {
   final CurrentUserService _currentUserService = CurrentUserService();
   final _uuid = const Uuid();
-  
+
   List<PostModel> _posts = [];
   Map<String, List<CommentModel>> _comments = {};
   Set<String> _likedPosts = {};
 
   List<PostModel> get posts => _posts;
-  
+
   String? get _currentUserId => _currentUserService.currentUserId ?? 'user1';
 
   // 게시글 관련

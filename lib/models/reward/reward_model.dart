@@ -81,4 +81,3 @@ enum RewardLevel {
     }
   }
 }
-

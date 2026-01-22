@@ -20,4 +20,3 @@ class _CafeListScreenState extends State<CafeListScreen> {
     );
   }
 }
-

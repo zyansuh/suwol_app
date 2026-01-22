@@ -17,7 +17,7 @@ abstract class BaseProvider with ChangeNotifier {
   }
 
   /// 에러 메시지 설정
-  void setError(String? error) {
+  void setError(dynamic error) {
     _errorMessage = error != null ? ErrorHandler.getErrorMessage(error) : null;
     notifyListeners();
   }

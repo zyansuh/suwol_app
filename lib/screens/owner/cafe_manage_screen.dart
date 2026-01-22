@@ -182,4 +182,3 @@ class _CafeManageScreenState extends State<CafeManageScreen> {
     );
   }
 }
-EOF

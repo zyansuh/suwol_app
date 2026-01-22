@@ -30,7 +30,9 @@ class EventModel {
       description: json['description'] as String,
       imageUrl: json['imageUrl'] as String?,
       type: EventType.fromString(json['type'] as String),
-      targetCafeIds: (json['targetCafeIds'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      targetCafeIds: (json['targetCafeIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       startDate: DateTime.parse(json['startDate'] as String),
       endDate: DateTime.parse(json['endDate'] as String),
       status: EventStatus.fromString(json['status'] as String? ?? 'active'),
@@ -44,7 +46,9 @@ enum EventType {
   cafe;
 
   static EventType fromString(String value) {
-    return EventType.values.firstWhere((e) => e.toString().split('.').last == value, orElse: () => EventType.platform);
+    return EventType.values.firstWhere(
+        (e) => e.toString().split('.').last == value,
+        orElse: () => EventType.platform);
   }
 }
 
@@ -54,7 +58,9 @@ enum EventStatus {
   ended;
 
   static EventStatus fromString(String value) {
-    return EventStatus.values.firstWhere((e) => e.toString().split('.').last == value, orElse: () => EventStatus.active);
+    return EventStatus.values.firstWhere(
+        (e) => e.toString().split('.').last == value,
+        orElse: () => EventStatus.active);
   }
 }
 

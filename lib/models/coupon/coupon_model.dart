@@ -111,4 +111,3 @@ class UserCoupon {
     this.isUsed = false,
   });
 }
-

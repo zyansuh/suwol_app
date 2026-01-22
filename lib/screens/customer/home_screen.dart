@@ -28,7 +28,8 @@ class CustomerHomeScreen extends StatelessWidget {
             slivers: [
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   child: _HeaderSection(),
                 ),
               ),
@@ -49,7 +50,8 @@ class CustomerHomeScreen extends StatelessWidget {
                     children: [
                       const Text(
                         '내 쿠폰',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       TextButton(
                         onPressed: () {},
@@ -90,7 +92,8 @@ class CustomerHomeScreen extends StatelessWidget {
                     children: [
                       const Text(
                         '주변 카페',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       TextButton(
                         onPressed: () {},
@@ -235,4 +238,3 @@ final List<_DummyCafe> _dummyCafes = [
         'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400',
   ),
 ];
-

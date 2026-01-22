@@ -31,7 +31,9 @@ class ReportModel {
       description: json['description'] as String?,
       status: ReportStatus.fromString(json['status'] as String? ?? 'pending'),
       createdAt: DateTime.parse(json['createdAt'] as String),
-      resolvedAt: json['resolvedAt'] != null ? DateTime.parse(json['resolvedAt'] as String) : null,
+      resolvedAt: json['resolvedAt'] != null
+          ? DateTime.parse(json['resolvedAt'] as String)
+          : null,
     );
   }
 }
@@ -42,7 +44,9 @@ enum ReportType {
   comment;
 
   static ReportType fromString(String value) {
-    return ReportType.values.firstWhere((e) => e.toString().split('.').last == value, orElse: () => ReportType.post);
+    return ReportType.values.firstWhere(
+        (e) => e.toString().split('.').last == value,
+        orElse: () => ReportType.post);
   }
 }
 
@@ -52,7 +56,9 @@ enum ReportStatus {
   rejected;
 
   static ReportStatus fromString(String value) {
-    return ReportStatus.values.firstWhere((e) => e.toString().split('.').last == value, orElse: () => ReportStatus.pending);
+    return ReportStatus.values.firstWhere(
+        (e) => e.toString().split('.').last == value,
+        orElse: () => ReportStatus.pending);
   }
 }
 
@@ -83,6 +89,8 @@ enum InquiryStatus {
   answered;
 
   static InquiryStatus fromString(String value) {
-    return InquiryStatus.values.firstWhere((e) => e.toString().split('.').last == value, orElse: () => InquiryStatus.pending);
+    return InquiryStatus.values.firstWhere(
+        (e) => e.toString().split('.').last == value,
+        orElse: () => InquiryStatus.pending);
   }
 }

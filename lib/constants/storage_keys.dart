@@ -7,4 +7,3 @@ class StorageKeys {
   static const String lastLocationLat = 'last_location_lat';
   static const String lastLocationLng = 'last_location_lng';
 }
-

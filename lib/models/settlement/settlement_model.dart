@@ -30,6 +30,8 @@ enum SettlementStatus {
   paid;
 
   static SettlementStatus fromString(String value) {
-    return SettlementStatus.values.firstWhere((e) => e.toString().split('.').last == value, orElse: () => SettlementStatus.pending);
+    return SettlementStatus.values.firstWhere(
+        (e) => e.toString().split('.').last == value,
+        orElse: () => SettlementStatus.pending);
   }
 }

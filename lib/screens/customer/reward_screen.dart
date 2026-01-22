@@ -20,4 +20,3 @@ class _RewardScreenState extends State<RewardScreen> {
     );
   }
 }
-

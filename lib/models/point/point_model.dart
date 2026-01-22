@@ -66,4 +66,3 @@ class UserPointSummary {
     required this.lastUpdated,
   });
 }
-

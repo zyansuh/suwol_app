@@ -9,8 +9,8 @@ import '../screens/customer/reward_screen.dart';
 import '../screens/customer/profile_screen.dart';
 import '../screens/owner/owner_home_screen.dart';
 import '../screens/owner/cafe_manage_screen.dart';
-import '../screens/owner/coupon_manage_screen.dart';
-import '../screens/owner/statistics_screen.dart';
+import '../screens/owner/coupon_manage_screen.dart' as owner;
+import '../screens/owner/statistics_screen.dart' as owner;
 import '../screens/map/cafe_map_screen.dart';
 import '../screens/map/cafe_list_screen.dart';
 import '../screens/map/cafe_detail_screen.dart';
@@ -19,8 +19,8 @@ import '../screens/community/post_detail_screen.dart';
 import '../screens/sunset/sunset_home_screen.dart';
 import '../screens/sunset/user_manage_screen.dart';
 import '../screens/sunset/cafe_approval_screen.dart';
-import '../screens/sunset/coupon_manage_screen.dart';
-import '../screens/sunset/statistics_screen.dart';
+import '../screens/sunset/coupon_manage_screen.dart' as sunset;
+import '../screens/sunset/statistics_screen.dart' as sunset;
 import '../screens/sunset/post_manage_screen.dart';
 import '../screens/sunset/settings_screen.dart';
 import '../screens/sunset/business_verification_screen.dart';
@@ -80,11 +80,11 @@ class AppRouter {
       ),
       GoRoute(
         path: '/owner/coupons',
-        builder: (context, state) => const CouponManageScreen(),
+        builder: (context, state) => const owner.CouponManageScreen(),
       ),
       GoRoute(
         path: '/owner/statistics',
-        builder: (context, state) => const StatisticsScreen(),
+        builder: (context, state) => const owner.StatisticsScreen(),
       ),
       GoRoute(
         path: '/map',
@@ -127,11 +127,11 @@ class AppRouter {
       ),
       GoRoute(
         path: '/sunset/coupons',
-        builder: (context, state) => const CouponManageScreen(),
+        builder: (context, state) => const sunset.CouponManageScreen(),
       ),
       GoRoute(
         path: '/sunset/statistics',
-        builder: (context, state) => const StatisticsScreen(),
+        builder: (context, state) => const sunset.StatisticsScreen(),
       ),
       GoRoute(
         path: '/sunset/posts',
@@ -184,4 +184,3 @@ class AppRouter {
     ],
   );
 }
-

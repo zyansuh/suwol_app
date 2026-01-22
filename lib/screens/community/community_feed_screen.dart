@@ -83,7 +83,8 @@ class _CommunityFeedScreenState extends State<CommunityFeedScreen> {
                                     color: Colors.red,
                                     shape: BoxShape.circle,
                                   ),
-                                  child: const Icon(Icons.close, size: 16, color: Colors.white),
+                                  child: const Icon(Icons.close,
+                                      size: 16, color: Colors.white),
                                 ),
                               ),
                             ),
@@ -119,8 +120,10 @@ class _CommunityFeedScreenState extends State<CommunityFeedScreen> {
                   return;
                 }
 
-                final provider = Provider.of<CommunityProvider>(context, listen: false);
-                final imagePaths = selectedImages.map((file) => file.path).toList();
+                final provider =
+                    Provider.of<CommunityProvider>(context, listen: false);
+                final imagePaths =
+                    selectedImages.map((file) => file.path).toList();
 
                 await provider.createPost(
                   content: contentController.text,
@@ -142,7 +145,8 @@ class _CommunityFeedScreenState extends State<CommunityFeedScreen> {
     );
   }
 
-  void _showEditPostDialog(String postId, String currentContent, List<String> currentImages) {
+  void _showEditPostDialog(
+      String postId, String currentContent, List<String> currentImages) {
     final contentController = TextEditingController(text: currentContent);
 
     showDialog(
@@ -171,7 +175,8 @@ class _CommunityFeedScreenState extends State<CommunityFeedScreen> {
                 return;
               }
 
-              final provider = Provider.of<CommunityProvider>(context, listen: false);
+              final provider =
+                  Provider.of<CommunityProvider>(context, listen: false);
               await provider.updatePost(
                 postId: postId,
                 content: contentController.text,
@@ -205,7 +210,8 @@ class _CommunityFeedScreenState extends State<CommunityFeedScreen> {
           ),
           TextButton(
             onPressed: () async {
-              final provider = Provider.of<CommunityProvider>(context, listen: false);
+              final provider =
+                  Provider.of<CommunityProvider>(context, listen: false);
               await provider.deletePost(postId);
 
               if (context.mounted) {
@@ -281,17 +287,21 @@ class _CommunityFeedScreenState extends State<CommunityFeedScreen> {
                               Expanded(
                                 child: Text(
                                   '사용자${post.userId}',
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                               PopupMenuButton(
                                 itemBuilder: (context) => [
-                                  const PopupMenuItem(value: 'edit', child: Text('수정')),
-                                  const PopupMenuItem(value: 'delete', child: Text('삭제')),
+                                  const PopupMenuItem(
+                                      value: 'edit', child: Text('수정')),
+                                  const PopupMenuItem(
+                                      value: 'delete', child: Text('삭제')),
                                 ],
                                 onSelected: (value) {
                                   if (value == 'edit') {
-                                    _showEditPostDialog(post.id, post.content, post.images);
+                                    _showEditPostDialog(
+                                        post.id, post.content, post.images);
                                   } else if (value == 'delete') {
                                     _showDeletePostDialog(context, post.id);
                                   }
@@ -329,7 +339,9 @@ class _CommunityFeedScreenState extends State<CommunityFeedScreen> {
                             children: [
                               IconButton(
                                 icon: Icon(
-                                  isLiked ? Icons.favorite : Icons.favorite_border,
+                                  isLiked
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
                                   color: isLiked ? Colors.red : null,
                                 ),
                                 onPressed: () {
@@ -344,7 +356,8 @@ class _CommunityFeedScreenState extends State<CommunityFeedScreen> {
                               const Spacer(),
                               Text(
                                 _formatTime(post.createdAt),
-                                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                                style: const TextStyle(
+                                    fontSize: 12, color: Colors.grey),
                               ),
                             ],
                           ),

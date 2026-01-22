@@ -20,4 +20,3 @@ class _CouponScreenState extends State<CouponScreen> {
     );
   }
 }
-

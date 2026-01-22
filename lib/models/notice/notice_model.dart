@@ -27,11 +27,17 @@ class NoticeModel {
       title: json['title'] as String,
       content: json['content'] as String,
       isPinned: json['isPinned'] as bool? ?? false,
-      publishStartDate: json['publishStartDate'] != null ? DateTime.parse(json['publishStartDate'] as String) : null,
-      publishEndDate: json['publishEndDate'] != null ? DateTime.parse(json['publishEndDate'] as String) : null,
+      publishStartDate: json['publishStartDate'] != null
+          ? DateTime.parse(json['publishStartDate'] as String)
+          : null,
+      publishEndDate: json['publishEndDate'] != null
+          ? DateTime.parse(json['publishEndDate'] as String)
+          : null,
       status: NoticeStatus.fromString(json['status'] as String? ?? 'active'),
       createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt'] as String) : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.parse(json['updatedAt'] as String)
+          : null,
     );
   }
 
