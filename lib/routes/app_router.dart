@@ -16,6 +16,13 @@ import '../screens/map/cafe_list_screen.dart';
 import '../screens/map/cafe_detail_screen.dart';
 import '../screens/community/community_feed_screen.dart';
 import '../screens/community/post_detail_screen.dart';
+import '../screens/sunset/sunset_home_screen.dart';
+import '../screens/sunset/user_manage_screen.dart';
+import '../screens/sunset/cafe_approval_screen.dart';
+import '../screens/sunset/coupon_manage_screen.dart';
+import '../screens/sunset/statistics_screen.dart';
+import '../screens/sunset/post_manage_screen.dart';
+import '../screens/sunset/settings_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -94,6 +101,35 @@ class AppRouter {
           final postId = state.pathParameters['postId']!;
           return PostDetailScreen(postId: postId);
         },
+      ),
+      // Admin (Sunset) Routes
+      GoRoute(
+        path: '/sunset',
+        builder: (context, state) => const SunsetHomeScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/users',
+        builder: (context, state) => const UserManageScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/cafes',
+        builder: (context, state) => const CafeApprovalScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/coupons',
+        builder: (context, state) => const CouponManageScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/statistics',
+        builder: (context, state) => const StatisticsScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/posts',
+        builder: (context, state) => const PostManageScreen(),
+      ),
+      GoRoute(
+        path: '/sunset/settings',
+        builder: (context, state) => const SettingsScreen(),
       ),
     ],
   );

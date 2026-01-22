@@ -46,7 +46,8 @@ class UserModel {
 
 enum UserType {
   customer,
-  owner;
+  owner,
+  admin;
 
   static UserType fromString(String value) {
     return UserType.values.firstWhere(
