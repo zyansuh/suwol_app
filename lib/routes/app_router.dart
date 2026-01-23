@@ -1,6 +1,11 @@
 import 'package:go_router/go_router.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/register_screen.dart';
+import '../screens/auth/role_selection_screen.dart';
+import '../screens/auth/customer_login_screen.dart';
+import '../screens/auth/owner_login_screen.dart';
+import '../screens/auth/customer_register_screen.dart';
+import '../screens/auth/owner_register_screen.dart';
 import '../screens/common/splash_screen.dart';
 import '../screens/customer/home_screen.dart';
 import '../screens/customer/point_screen.dart';
@@ -44,11 +49,31 @@ class AppRouter {
       ),
       GoRoute(
         path: '/login',
-        builder: (context, state) => const LoginScreen(),
+        builder: (context, state) => const RoleSelectionScreen(
+          type: RoleSelectionType.login,
+        ),
+      ),
+      GoRoute(
+        path: '/login/customer',
+        builder: (context, state) => const CustomerLoginScreen(),
+      ),
+      GoRoute(
+        path: '/login/owner',
+        builder: (context, state) => const OwnerLoginScreen(),
       ),
       GoRoute(
         path: '/register',
-        builder: (context, state) => const RegisterScreen(),
+        builder: (context, state) => const RoleSelectionScreen(
+          type: RoleSelectionType.register,
+        ),
+      ),
+      GoRoute(
+        path: '/register/customer',
+        builder: (context, state) => const CustomerRegisterScreen(),
+      ),
+      GoRoute(
+        path: '/register/owner',
+        builder: (context, state) => const OwnerRegisterScreen(),
       ),
       GoRoute(
         path: '/home',
